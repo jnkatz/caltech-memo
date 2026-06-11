@@ -17,7 +17,7 @@
   mail-code: none,
   phone: none,
   department: [Division of the Humanities and Social Sciences],
-  logo: "/_extensions/caltech-memo/caltech-logo-orange.svg",
+  logo: none,
   fontsize: 11pt,
   margin: (x: 1in, top: 1.05in, bottom: 1in),
   doc,
@@ -49,7 +49,9 @@
   )
 
   // --- Lockup: logo + division line (memos carry no sender address block) ---
-  image(logo, height: 0.55in)
+  if logo != none {
+    image(logo, height: 0.55in)
+  }
   v(6pt)
   text(font: "Georgia", size: 9pt, fill: caltech-gray)[#department]
 

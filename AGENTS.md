@@ -91,12 +91,12 @@ committee memos. `memo.from` alone defaults to "Jonathan N. Katz".
 
 Identical to `caltech-letter` (assets copied from it):
 `caltech-logo-orange.pdf` for XeLaTeX, `.svg` for Typst (which cannot
-embed PDF), `logo-path.lua` resolving the PDF via
-`quarto.utils.resolve_path`, the Typst logo path a root-relative
-literal in the function default (Pandoc's Typst writer corrupts
-`_extensions` paths routed through metadata). TeX Gyre Heros comes
-from the TeX tree (kpathsea, `tex-gyre` package) for XeLaTeX and from
-the bundled `fonts/` for Typst. Georgia is a system-font dependency.
+embed PDF), `logo-path.lua` resolving both engine-specific logo paths
+via `quarto.utils.resolve_path`. For Typst, the Lua filter emits a
+root-relative raw Typst string so Pandoc does not escape underscores
+in `_extensions` paths. TeX Gyre Heros comes from the TeX tree
+(kpathsea, `tex-gyre` package) for XeLaTeX and from the bundled
+`fonts/` for Typst. Georgia is a system-font dependency.
 
 ## Build and test
 
@@ -104,6 +104,9 @@ the bundled `fonts/` for Typst. Georgia is a system-font dependency.
 # Render the committee-memo sample to each engine
 quarto render example.qmd --to caltech-memo-pdf
 quarto render example.qmd --to caltech-memo-typst
+
+# Full smoke test: local + namespaced installs, both engines, page 2
+bash scripts/smoke-test.sh
 ```
 
 Samples: `template.qmd` (minimal, `date: today`, scalar to/from),
@@ -114,8 +117,8 @@ full contact stack).
 (field block alignment, label column, orange rules). For the
 continuation header, append filler paragraphs to force a second page
 and check subject + date left, "Page N" right, orange rule, in both
-engines. There is no smoke-test script yet (the letterhead repo's
-`scripts/smoke-test.sh` is the model if one is added).
+engines. The smoke test automates render and text checks, but visual
+inspection is still useful after layout changes.
 
 Requirements: Quarto ≥ 1.4, XeLaTeX with `tex-gyre`/`fontspec`/
 `fancyhdr`/`ragged2e`, and the Georgia font. Typst is bundled with
@@ -123,15 +126,6 @@ Quarto.
 
 ## Known limitations / worth scrutinizing
 
-- **Namespaced installs (from Codex review, unfixed)**: the Typst
-  logo path (`typst-template.typ`) and `font-paths`
-  (`_extension.yml`) are literals pointing at
-  `/_extensions/caltech-memo/…`. A GitHub install (`quarto add
-  jnkatz/caltech-memo`) lands in `_extensions/jnkatz/caltech-memo/`,
-  where the Typst logo and bundled fonts will not resolve. The
-  LaTeX path is immune (`logo-path.lua` uses
-  `quarto.utils.resolve_path`). `caltech-letter` has the identical
-  limitation; fix both together.
 - **Body rhythm across engines is approximate, by design**: LaTeX
   `\parskip 0.8\baselineskip` vs. Typst `spacing: 0.9em`, and LaTeX
   `\@startsection` spacing vs. Typst text-size show rules. Verified

@@ -29,6 +29,7 @@ contributes:
       page-numbering: false
       font-paths:
         - /_extensions/caltech-memo/fonts
+        - /_extensions/jnkatz/caltech-memo/fonts
       template-partials:
         - typst-template.typ
         - typst-show.typ

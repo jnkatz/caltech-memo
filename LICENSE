@@ -22,10 +22,10 @@ SOFTWARE.
 
 ----------------------------------------------------------------------------
 
-The TeX Gyre Heros fonts bundled in _extensions/caltech-letter/fonts/ are
+The TeX Gyre Heros fonts bundled in _extensions/caltech-memo/fonts/ are
 distributed under the GUST Font License (GFL), a free font license. The
 full license text and font copyright notice are included alongside the
-fonts in _extensions/caltech-letter/fonts/LICENSE-GFL.txt.
+fonts in _extensions/caltech-memo/fonts/LICENSE-GFL.txt.
 
 The Caltech wordmark (caltech-logo-orange.pdf / .svg, derived from the
 official vector logo in the Caltech Identity Toolkit) is a trademark of the

@@ -25,8 +25,9 @@ sharing their visual identity (orange `#FF6C0C`).
 quarto add jnkatz/caltech-memo
 ```
 
-This installs the extension into `_extensions/caltech-memo/` in your
-project.
+This installs the extension into `_extensions/jnkatz/caltech-memo/` in
+your project. A local development checkout may instead use
+`_extensions/caltech-memo/`; both layouts are supported.
 
 ## Usage
 
@@ -108,7 +109,7 @@ and match the `caltech-letter` extension:
 - **Body** — **TeX Gyre Heros**, a free Helvetica-metric face
   (replacing the old class's Times). XeLaTeX loads it from your TeX
   installation (the `tex-gyre` package); Typst uses the copies
-  bundled in `_extensions/caltech-memo/fonts/`.
+  bundled with the extension.
 - **Division line** — **Georgia** (serif), the sanctioned free
   alternative to Adobe Caslon Pro, per Caltech's lockup standard.
 - **Field labels** — small Cool Gray sans caps (TO, FROM, DATE, …),
@@ -133,6 +134,9 @@ _extensions/caltech-memo/
 └── fonts/                      # TeX Gyre Heros (for Typst)
 ```
 
+When installed from GitHub, the same files live under
+`_extensions/jnkatz/caltech-memo/`.
+
 ## Requirements
 
 - Quarto >= 1.4.0
@@ -142,6 +146,18 @@ _extensions/caltech-memo/
   `tex-gyre`, `fontspec`, `fancyhdr`, and `ragged2e` packages (all
   standard; Quarto's TinyTeX can install them).
 - For `caltech-memo-typst`: nothing beyond Quarto and Georgia.
+
+## Testing
+
+Run the smoke test before publishing changes:
+
+```bash
+bash scripts/smoke-test.sh
+```
+
+It renders local and GitHub-style namespaced extension layouts with
+both engines, checks minimal and committee memos, and verifies the
+page-2 continuation header.
 
 ## License
 

@@ -22,6 +22,9 @@ $endif$
 $if(memo.phone)$
   phone: [$memo.phone$],
 $endif$
+$if(typst-logo-path)$
+  logo: $typst-logo-path$,
+$endif$
 $if(department)$
   department: [$department$],
 $endif$
