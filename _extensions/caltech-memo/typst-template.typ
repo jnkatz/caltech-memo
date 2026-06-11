@@ -49,9 +49,13 @@
   )
 
   // --- Lockup: logo + division line (memos carry no sender address block) ---
-  if logo != none {
-    image(logo, height: 0.55in)
-  }
+  // A missing logo is a branding bug, not a degraded mode: fail loudly
+  // rather than render a memo without the wordmark.
+  assert(
+    logo != none,
+    message: "caltech-memo: logo not resolved — logo-path.lua should inject typst-logo-path",
+  )
+  image(logo, height: 0.55in)
   v(6pt)
   text(font: "Georgia", size: 9pt, fill: caltech-gray)[#department]
 

@@ -136,6 +136,19 @@ assert_text() {
   fi
 }
 
+# Typst falls back to a substitute font SILENTLY when font-paths is wrong,
+# so text assertions alone cannot catch a font regression. Require the
+# bundled face to actually be embedded.
+assert_font() {
+  local pdf="$1"
+  local face="$2"
+
+  if ! pdffonts "$pdf" | grep -q "$face"; then
+    printf 'Font %s not embedded in %s (silent fallback?)\n' "$face" "$pdf" >&2
+    exit 1
+  fi
+}
+
 run_layout() {
   local layout="$1"
   local project="$TMP_ROOT/$layout"
@@ -162,11 +175,15 @@ run_layout() {
     assert_text long-latex.pdf "Page 2" 2
     assert_text long-typst.pdf "Long Smoke Memo" 2
     assert_text long-typst.pdf "Page 2" 2
+
+    assert_font template-typst.pdf "TeXGyreHeros"
+    assert_font example-typst.pdf "TeXGyreHeros"
   )
 }
 
 need quarto
 need pdftotext
+need pdffonts
 
 run_layout local
 run_layout namespaced
