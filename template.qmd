@@ -1,0 +1,32 @@
+---
+format: caltech-memo-pdf
+# Memo fields live under `memo:` because `to` and `from` are reserved
+# Pandoc options at the top level of Quarto front matter.
+memo:
+  to: "HSS Faculty"
+  # `to` and `from` accept a single string or a YAML list (one line
+  # each), e.g. for committee memos:
+  #   from:
+  #     - "Jonathan N. Katz (chair)"
+  #     - "Second Member"
+  from: "Jonathan N. Katz"
+  subject: "Subject of the memo"
+  # The contact stack in the right column is shown only if provided:
+  email: "jkatz@caltech.edu"
+  mail-code: "228-77"
+  phone: "x4191"
+# `date` stays top-level: Quarto resolves `today` and applies the
+# "MMMM D, YYYY" format only to the standard date key.
+date: today
+# Switch engines by changing the format to caltech-memo-typst.
+---
+
+Write the body of the memo here. Paragraphs are separated by a blank
+line, exactly as in any Markdown document. The Caltech lockup and the
+TO / FROM / DATE / SUBJECT block are generated for you from the front
+matter above.
+
+## Optional Section
+
+Memos may use section headings; they render as modest bold headings
+in both engines.

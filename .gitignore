@@ -1,0 +1,17 @@
+/.quarto/
+*_files/
+*_cache/
+.DS_Store
+**/*.quarto_ipynb
+
+# Local tool settings (not for a shared/public repo)
+.claude/settings.local.json
+
+# Generated render artifacts (root level only — keep _extensions/*.tex / *.typ)
+/*.pdf
+/*.tex
+/*.typ
+
+# Reference material from the original Pages workflow. Not committed: the
+# sample letter names a real individual, so it stays out of version control.
+*.pages

@@ -1,0 +1,48 @@
+---
+format: caltech-memo-pdf
+memo:
+  to: "Tenured Social Science Faculty"
+  from:
+    - "Jonathan N. Katz (chair)"
+    - "Graduate Curriculum Committee"
+  subject: "Proposed Revisions to the First-Year Graduate Sequence"
+  email: "jkatz@caltech.edu"
+  mail-code: "228-77"
+  phone: "x4191"
+date: "June 11, 2026"
+---
+
+The committee recommends restructuring the first-year graduate
+methods sequence beginning next academic year. This memo summarizes
+the motivation for the change, the proposed structure, and the
+timeline for faculty discussion and a vote at the September meeting.
+
+The current sequence has been essentially unchanged for a decade.
+In that time both the entering cohorts and the methodological
+demands of the field have shifted: students arrive with stronger
+programming backgrounds but more heterogeneous mathematical
+preparation, and causal inference and computational methods now
+occupy a much larger share of published empirical work.
+
+## Proposed Structure
+
+The committee proposes replacing the current two-term sequence with
+three quarter-length courses. The first covers probability and
+statistical theory at the current level. The second is reorganized
+around the design-based view of causal inference, consolidating
+material that is now scattered across electives. The third is a new
+course on computational methods, including simulation, numerical
+optimization, and reproducible workflows.
+
+No additional teaching resources are required. The third course
+absorbs an existing elective, and the rotation already includes
+faculty prepared to teach each component.
+
+## Timeline
+
+We will circulate detailed syllabi over the summer and hold an open
+discussion at the first faculty meeting of fall term. If the
+proposal is approved at the September meeting, the new sequence
+takes effect for the entering cohort the following year. Comments
+before then are welcome and should be sent to any member of the
+committee.

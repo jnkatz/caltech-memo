@@ -1,0 +1,63 @@
+$-- caltech-memo: the memo heading, drawn before the body in place of the
+$-- default title block. Modeled on the HSSCorrespondence memo environment
+$-- (TO / FROM / SUBJECT left; DATE / E-MAIL / MAIL CODE / EXT right) with
+$-- the modern letterhead lockup (orange wordmark + Georgia division line).
+\thispagestyle{firstpagestyle}
+
+$-- Logo + division lockup, top left (memos carry no sender address block).
+\noindent
+\includegraphics[height=0.55in]{$logo-path$}\\[6pt]
+{\divisionfont\footnotesize\color{caltechgray}$if(department)$$department$$else$Division of the Humanities and Social Sciences$endif$}
+
+\vspace{1.4\baselineskip}
+
+$-- Column arithmetic for the field block.
+\settowidth{\memolabelwd}{{\memolabelfont SUBJECT}}
+\addtolength{\memolabelwd}{0.9em}
+\setlength{\memoleftwd}{\textwidth}
+\addtolength{\memoleftwd}{-\memorightwd}
+\addtolength{\memoleftwd}{-1.5em}
+
+$-- Row 1: TO ... | DATE
+$-- (memo fields live under the `memo:` YAML block because `to` and `from`
+$--  are reserved Pandoc reader/writer options at the top level)
+\noindent
+\begin{minipage}[t]{\memoleftwd}
+  \makebox[\memolabelwd][l]{\memolabelfont TO}%
+  \parbox[t]{\dimexpr\memoleftwd-\memolabelwd\relax}{\RaggedRight
+    $for(memo.to)$$it$$sep$\\$endfor$}
+\end{minipage}\hfill
+\begin{minipage}[t]{\memorightwd}
+  \makebox[\memolabelwd][l]{\memolabelfont DATE}\hfill $if(date)$$date$$else$\today$endif$
+\end{minipage}
+
+\vspace{0.6\baselineskip}
+
+$-- Row 2: FROM ... | E-MAIL / MAIL CODE / EXT (each shown only if given)
+\noindent
+\begin{minipage}[t]{\memoleftwd}
+  \makebox[\memolabelwd][l]{\memolabelfont FROM}%
+  \parbox[t]{\dimexpr\memoleftwd-\memolabelwd\relax}{\RaggedRight
+    $if(memo.from)$$for(memo.from)$$it$$sep$\\$endfor$$else$Jonathan N. Katz$endif$}
+\end{minipage}\hfill
+\begin{minipage}[t]{\memorightwd}
+  \setlength{\parskip}{0pt}%
+  $if(memo.email)$\contactline{E-MAIL}{$memo.email$}$endif$%
+  $if(memo.mail-code)$\contactline{MAIL CODE}{$memo.mail-code$}$endif$%
+  $if(memo.phone)$\contactline{EXT}{$memo.phone$}$endif$
+\end{minipage}
+
+\vspace{0.6\baselineskip}
+
+$-- Row 3: SUBJECT (full width, bold)
+\noindent
+\makebox[\memolabelwd][l]{\memolabelfont SUBJECT}%
+\parbox[t]{\dimexpr\textwidth-\memolabelwd\relax}{\RaggedRight
+  \textbf{$if(memo.subject)$$memo.subject$$endif$}}
+
+\vspace{0.5\baselineskip}
+{\color{caltechorange}\hrule height 0.5pt}
+\vspace{0.3\baselineskip}
+
+$-- Fill the page-2+ running header from metadata.
+\renewcommand{\contheadleft}{$if(memo.subject)$$memo.subject$\hspace{2em}$endif$$if(date)$$date$$else$\today$endif$}
