@@ -1,5 +1,7 @@
 # Caltech Memo
 
+[![Smoke Tests](https://github.com/jnkatz/caltech-memo/actions/workflows/smoke-test.yml/badge.svg)](https://github.com/jnkatz/caltech-memo/actions/workflows/smoke-test.yml)
+
 A [Quarto](https://quarto.org/) format extension for Caltech HSS
 memoranda. It reproduces the classic `HSSCorrespondence.cls` memo
 layout — the Caltech wordmark and division lockup, then a labeled

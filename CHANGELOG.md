@@ -2,7 +2,11 @@
 
 All notable changes to `caltech-memo` are documented here.
 
-## Unreleased
+## 0.1.0 — 2026-06-11
+
+Initial release. The sections below record the pre-release review
+rounds (Codex review of the initial draft, then hardening of those
+fixes).
 
 ### Fixed
 
