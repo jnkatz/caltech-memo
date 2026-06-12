@@ -14,6 +14,13 @@ All notable changes to `caltech-memo` are documented here.
   in the Typst PDFs (`pdffonts`); Typst substitutes fonts silently,
   so text checks alone could not catch a `font-paths` regression.
 
+### Added
+
+- The smoke test now also renders from a subdirectory of the project
+  in both layouts, verifying that the root-relative Typst asset paths
+  resolve below the project root (manually confirmed for both engines
+  before being added).
+
 ### Fixed (initial Codex review)
 
 - Fixed Typst rendering after `quarto add jnkatz/caltech-memo` by

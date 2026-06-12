@@ -22,6 +22,10 @@ need() {
 
 copy_inputs() {
   local project="$1"
+  # A _quarto.yml makes this a Quarto project, which is required for
+  # subdirectory renders: without it Quarto looks for _extensions only
+  # in the document's own directory.
+  printf 'project:\n  type: default\n' > "$project/_quarto.yml"
   cp "$ROOT/template.qmd" "$project/template.qmd"
   cp "$ROOT/example.qmd" "$project/example.qmd"
 
@@ -111,9 +115,8 @@ install_extension() {
 }
 
 render_pair() {
-  local project="$1"
-  local source="$2"
-  local stem="$3"
+  local source="$1"
+  local stem="$2"
 
   quarto render "$source" --to caltech-memo-pdf \
     --output "$stem-latex.pdf"
@@ -160,10 +163,16 @@ run_layout() {
   printf '==> Testing %s install layout\n' "$layout"
   (
     cd "$project"
-    render_pair "$project" template.qmd template
-    render_pair "$project" example.qmd example
-    render_pair "$project" minimal.qmd minimal
-    render_pair "$project" long.qmd long
+    render_pair template.qmd template
+    render_pair example.qmd example
+    render_pair minimal.qmd minimal
+    render_pair long.qmd long
+
+    # Subdirectory render: root-relative Typst asset paths must resolve
+    # from a document below the project root, in both layouts.
+    mkdir -p memos
+    cp template.qmd memos/subdir.qmd
+    render_pair memos/subdir.qmd subdir
 
     assert_text template-latex.pdf "Subject of the memo"
     assert_text template-typst.pdf "Subject of the memo"
@@ -176,8 +185,14 @@ run_layout() {
     assert_text long-typst.pdf "Long Smoke Memo" 2
     assert_text long-typst.pdf "Page 2" 2
 
+    # In project mode, --output lands at the project root, not the
+    # input's directory.
+    assert_text subdir-latex.pdf "Subject of the memo"
+    assert_text subdir-typst.pdf "Subject of the memo"
+
     assert_font template-typst.pdf "TeXGyreHeros"
     assert_font example-typst.pdf "TeXGyreHeros"
+    assert_font subdir-typst.pdf "TeXGyreHeros"
   )
 }
 

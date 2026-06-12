@@ -105,7 +105,9 @@ in `_extensions` paths. TeX Gyre Heros comes from the TeX tree
 quarto render example.qmd --to caltech-memo-pdf
 quarto render example.qmd --to caltech-memo-typst
 
-# Full smoke test: local + namespaced installs, both engines, page 2
+# Full smoke test: local + namespaced installs, both engines, page-2
+# continuation, subdirectory renders, and font-embedding assertions
+# (pdffonts — Typst substitutes missing fonts silently)
 bash scripts/smoke-test.sh
 ```
 
@@ -126,6 +128,19 @@ Quarto.
 
 ## Known limitations / worth scrutinizing
 
+- **Subdirectory renders require a Quarto project**: with a
+  `_quarto.yml` at the root, documents in subdirectories render fine
+  in both layouts and engines (smoke-tested). Without one, Quarto
+  looks for `_extensions/` only in the document's own directory and
+  fails with "Unable to read the extension" — a Quarto behavior, not
+  something this extension can fix.
+- **Fork installs get silent font fallback in Typst**: `font-paths`
+  in `_extension.yml` enumerates exactly two layouts
+  (`/_extensions/caltech-memo/fonts` and
+  `/_extensions/jnkatz/caltech-memo/fonts`). An install under a
+  different GitHub owner resolves the logo (Lua-injected) but not
+  the bundled Heros fonts, and Typst substitutes silently. The smoke
+  test's `pdffonts` assertions catch this when run; renders do not.
 - **Body rhythm across engines is approximate, by design**: LaTeX
   `\parskip 0.8\baselineskip` vs. Typst `spacing: 0.9em`, and LaTeX
   `\@startsection` spacing vs. Typst text-size show rules. Verified
